@@ -96,6 +96,7 @@ export const signin = async (req, res) => {
 };
 
 export const protect = async (req, res, next) => {
+  console.log('protect');
   if (!req.cookies['payload'] || !req.cookies['signature']) {
     return res.status(401).end();
   }
@@ -123,6 +124,8 @@ export const protect = async (req, res, next) => {
 };
 
 export const reAuth = async (req, res, next) => {
+  console.log('reAuth');
+
   const accessToken = newAccessToken(req.user);
 
   res.cookie('payload', accessToken.split('.').splice(0, 2).join('.'), {

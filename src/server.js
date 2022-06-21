@@ -6,8 +6,8 @@ import path from 'path'
 // import { protect, reAuth, signin, signup } from './utils/auth';
 import cookieParser from 'cookie-parser';
 import { connect } from './utils/db.js';
-import { signin, signup } from './utils/auth.js';
-
+import { protect, reAuth, signin, signup } from './utils/auth.js';
+import userRouter  from "./res/user/user.router.js";
 
 export const app = express();
 
@@ -34,6 +34,9 @@ app.use(
 
 app.post('/signup', signup);
 app.post('/signin', signin)
+app.use('/api', protect)
+app.use('/api', reAuth)
+app.use('/api/user', userRouter)
 
 export const start = async () => {
   try {
